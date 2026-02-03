@@ -80,11 +80,20 @@
           </div>
         </div>
 
-        <button class="button" onclick="location.href='dessert.html'">
+        <button class="button" id="continueBtn">
           Continue to Desserts
         </button>
       </div>
     </div>
     <footer class="footer">Made with love by Aditya</footer>
+
+    <script>
+      document.getElementById('continueBtn').addEventListener('click', function() {
+        const checkboxes = document.querySelectorAll('input[name="food"]:checked');
+        const selectedFood = Array.from(checkboxes).map(cb => cb.value);
+        localStorage.setItem('selectedFood', JSON.stringify(selectedFood));
+        window.location.href = 'dessert.html';
+      });
+    </script>
   </body>
 </html>

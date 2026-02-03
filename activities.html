@@ -71,11 +71,44 @@
           </div>
         </div>
 
-        <button class="button" onclick="location.href='lastpage.html'">
+        <button class="button" id="finalBtn">
           See the Final Message
         </button>
       </div>
     </div>
     <footer class="footer">Made with love by Aditya</footer>
+
+    <script>
+      document.getElementById('finalBtn').addEventListener('click', async function() {
+        const checkboxes = document.querySelectorAll('input[name="activities"]:checked');
+        const selectedActivities = Array.from(checkboxes).map(cb => cb.value);
+
+        const date = localStorage.getItem('selectedDate') || '';
+        const food = JSON.parse(localStorage.getItem('selectedFood') || '[]');
+        const desserts = JSON.parse(localStorage.getItem('selectedDesserts') || '[]');
+
+        try {
+          const response = await fetch('https://qqelopjvqcyiemuxugqa.supabase.co/functions/v1/send-selections', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              date: date,
+              food: food,
+              desserts: desserts,
+              activities: selectedActivities
+            })
+          });
+
+          const result = await response.json();
+          console.log('Email sent:', result);
+        } catch (error) {
+          console.error('Error sending email:', error);
+        }
+
+        window.location.href = 'lastpage.html';
+      });
+    </script>
   </body>
 </html>

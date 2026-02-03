@@ -15,17 +15,26 @@
         <h1 class="main-title">When are you free, Sparshi?</h1>
         <p class="subtitle">Let's pick the perfect day for our date</p>
 
-        <form class="date-form">
+        <form class="date-form" id="dateForm">
           <div class="form-group">
             <label for="dateInput" class="date-label">Select a date</label>
             <input type="date" id="dateInput" class="date-input" required />
           </div>
-          <button class="button" type="submit" formaction="food.html">
+          <button class="button" type="submit">
             Continue
           </button>
         </form>
       </div>
     </div>
     <footer class="footer">Made with love by Aditya</footer>
+
+    <script>
+      document.getElementById('dateForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const selectedDate = document.getElementById('dateInput').value;
+        localStorage.setItem('selectedDate', selectedDate);
+        window.location.href = 'food.html';
+      });
+    </script>
   </body>
 </html>
